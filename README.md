@@ -1,4 +1,4 @@
-i# Jenkins CI/CD Pipeline Task
+# Jenkins CI/CD Pipeline Task
 This repository contains a simple Node.js app with a Jenkins pipeline for CI/CD.
 
 ## Setup
