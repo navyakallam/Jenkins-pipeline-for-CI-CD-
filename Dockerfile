@@ -1,15 +1,17 @@
-FROM node:18-alpine                                                                                                                                               
-                                                                                                                                                                
-# Set working directory                                                                                                                                         
-WORKDIR /app                                                                                                                                                    
-                                                                                                                                                                
-# Copy files                                                                                                                                                    
-COPY package*.json ./                                                                                                                                           
-RUN npm install                                                                                                                                                 
-COPY . .                                                                                                                                                        
-                                                                                                                                                                
-# Expose port                                                                                                                                                   
-EXPOSE 3000                                                                                                                                                     
-                                                                                                                                                                
-# Run app                                                                                                                                                       
-CMD ["node", "index.js"] 
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Set a custom npm cache directory
+ENV NPM_CONFIG_CACHE=/app/.npm
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["node", "index.js"]
+
