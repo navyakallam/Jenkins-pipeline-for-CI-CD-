@@ -9,7 +9,7 @@ pipeline {
         stage('Clone') {
             steps {
                 echo 'Cloning the repository...'
-                git branch: 'main', url: "https://github.com/navyakallam/Jenkins-pipeline-for-CI-CD-.git"
+                git branch: 'main', url: 'https://github.com/navyakallam/Jenkins-pipeline-for-CI-CD-.git'
             }
         }
 
