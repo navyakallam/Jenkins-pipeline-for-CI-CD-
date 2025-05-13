@@ -8,7 +8,7 @@ This repository contains a simple Node.js app with a Jenkins pipeline for CI/CD.
 
 ## Pipeline Stages
 1. *Build*: Creates a Docker image.
-2. *Test*: Placeholder for future tests.
+2. *Test*: Placeholder for the future tests.
 3. *Deploy*: Runs the app in a Docker container on port 80.
 
 ## How to Test
