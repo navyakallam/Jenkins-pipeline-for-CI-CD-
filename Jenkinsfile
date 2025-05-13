@@ -25,9 +25,8 @@ pipeline {
            steps {
                echo 'Running tests...'
                 script {
-                    docker.image('nodejs-demo-app:latest').inside {
-                    sh 'npm install'
-                    sh 'npm test || echo "No tests defined"'
+                    withDockerContainer(image: 'nodejs-demo-app:latest', args: '--user node') {
+                        sh 'npm install'
                     }
                 }    
             }
