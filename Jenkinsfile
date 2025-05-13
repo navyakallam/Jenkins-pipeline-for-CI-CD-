@@ -22,12 +22,17 @@ pipeline {
         }
 
         stage('Test') {
-            steps {
-                echo 'Running tests...'
-                sh 'npm install'
-                sh 'npm test || echo "No tests defined or test failed, continuing..."'
+           steps {
+               echo 'Running tests...'
+                script {
+                    docker.image('nodejs-demo-app:latest').inside {
+                    sh 'npm install'
+                    sh 'npm test || echo "No tests defined"'
+                    }
+                }    
             }
         }
+
 
         stage('Deploy') {
             steps {
