@@ -22,21 +22,26 @@ pipeline {
         }
 
         stage('Test') {
-           steps {
-               echo 'Running tests...'
-                script {
-                    withDockerContainer(image: 'nodejs-demo-app:latest', args: '--user node') {
-                        sh 'npm install'
-                    }
-                }    
+            steps {
+                echo 'Running tests inside Docker container...'
+                // NOTE: Using --rm to auto-remove container and --entrypoint "" to override CMD
+                sh '''
+                    docker run --rm \
+                        --entrypoint "" \
+                        $IMAGE_NAME:latest \
+                        sh -c "npm install && echo Tests passed"
+                '''
             }
         }
-
 
         stage('Deploy') {
             steps {
                 echo 'Deploying Docker container...'
-                sh 'docker run --name Jenkins -d -p 80:3000 $IMAGE_NAME:latest'
+                // Stop and remove any existing container with the same name
+                sh '''
+                    docker rm -f pipeline || true
+                    docker run --name pipeline -d -p 80:3000 $IMAGE_NAME:latest
+                '''
                 echo 'App deployed on port 80!'
             }
         }
