@@ -3,21 +3,20 @@ pipeline {
 
     environment {
         IMAGE_NAME = 'nodejs-demo-app'
-        DOCKER_HUB_USERNAME = 'navya480'
     }
 
     stages {
         stage('Clone') {
             steps {
                 echo 'Cloning the repository...'
-                git branch: 'main', url: https://github.com/navyakallam/Jenkins-pipeline-for-CI-CD-.git
+                git branch: 'main', url: "https://github.com/navyakallam/Jenkins-pipeline-for-CI-CD-.git"
             }
         }
 
         stage('Build') {
             steps {
                 echo 'Building Docker image...'
-                sh 'docker build -t $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest .'
+                sh 'docker build -t $IMAGE_NAME:latest .'
                 echo 'Docker image built successfully!'
             }
         }
@@ -33,7 +32,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying Docker container...'
-                sh 'docker run --name Jenkins -d -p 80:3000 $DOCKER_HUB_USERNAME/$IMAGE_NAME:latest'
+                sh 'docker run --name Jenkins -d -p 80:3000 $IMAGE_NAME:latest'
                 echo 'App deployed on port 80!'
             }
         }
